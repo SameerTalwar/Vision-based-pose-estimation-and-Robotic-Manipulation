@@ -1,49 +1,49 @@
 # Follow this procedure to run the package 
-# Supported Ubuntu and ROS versions- ROS Melodic, Ubuntu 18.04
+#Supported Ubuntu and ROS versions- ROS Melodic, Ubuntu 18.04
 ---------------------------------------------------------------------------------
 # Install urniversal_robot package
-# Clone the following git packages into catkin_ws/src
+#Clone the following git packages into catkin_ws/src
 
 cd $HOME/catkin_ws/src
 
-# retrieve the sources (replace '$ROS_DISTRO' with the ROS version you are using)
+#retrieve the sources (replace '$ROS_DISTRO' with the ROS version you are using)
 git clone -b $ROS_DISTRO-devel https://github.com/ros-industrial/universal_robot.git
 
 cd $HOME/catkin_ws
 
-# checking dependencies (again: replace '$ROS_DISTRO' with the ROS version you are using)
+#checking dependencies (again: replace '$ROS_DISTRO' with the ROS version you are using)
 rosdep update
 rosdep install --rosdistro $ROS_DISTRO --ignore-src --from-paths src
 
-# building
+#building
 catkin_make
 
-# activate this workspace
+#activate this workspace
 source $HOME/catkin_ws/devel/setup.bash
 
-# or.. installing directly using sudo apt
+#or.. installing directly using sudo apt
 sudo apt-get install ros-$ROS_DISTRO-universal-robot
 
-# You can also copy the package directly into catkin_ws/src and repeat from the rosdep step
+#You can also copy the package directly into catkin_ws/src and repeat from the rosdep step
 
 ----------------------------------------------------------------------------------
 # Next install the moveit package
 
-# make sure you have the most up to date packages:
+#make sure you have the most up to date packages:
 rosdep update
 sudo apt-get update
 sudo apt-get dist-upgrade
 
 sudo apt-get install ros-melodic-moveit
 
-# Source installation requires wstool, catkin_tools, and optionally clang-format:
+#Source installation requires wstool, catkin_tools, and optionally clang-format:
 sudo apt install python-wstool python-catkin-tools clang-format-10 python-rosdep
 
-# In catkin_ws-
+#In catkin_ws-
 cd catkin_ws
 source /opt/ros/melodic/setup.bash
 
-# Pull down required repositories and build from within the root directory of your catkin workspace
+#Pull down required repositories and build from within the root directory of your catkin workspace
 wstool init src
 wstool merge -t src https://raw.githubusercontent.com/ros-planning/moveit/master/moveit.rosinstall
 wstool update -t src
@@ -54,10 +54,10 @@ catkin config --extend /opt/ros/${ROS_DISTRO} --cmake-args -DCMAKE_BUILD_TYPE=Re
 
 # copy the folder myur5_sim in catkin_ws/src
 
-# run a catkin_make
+#run a catkin_make
 catkin_make
 
-# In case of any missing package error while executing catkin_make, simply install it using-
+#In case of any missing package error while executing catkin_make, simply install it using-
 sudo apt-get install <package name>
 
 ------------------------------------------------------------------------------------
