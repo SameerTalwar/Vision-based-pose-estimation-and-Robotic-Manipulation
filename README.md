@@ -1,7 +1,7 @@
 # Follow this procedure to run the package 
 #Supported Ubuntu and ROS versions- ROS Melodic, Ubuntu 18.04
 ---------------------------------------------------------------------------------
-# Install urniversal_robot package
+# Install universal_robot package
 #Clone the following git packages into catkin_ws/src
 
 cd $HOME/catkin_ws/src
@@ -65,22 +65,22 @@ sudo apt-get install <package name>
 # In order to run the gazebo world
 roslaunch myur5_description myur5.launch
 
-# in separate terminal, run the move_group python node, this also opens rviz with motion planner
+#in separate terminal, run the move_group python node, this also opens rviz with motion planner
 roslaunch myur5_moveit_config myur5_move_group_python.launch
 
-# run the python scripts to move the arm and go to an aruco marker
+#run the python scripts to move the arm and go to an aruco marker
 rosrun myur5_moveit_config move_group_python_interface2.py
 
-# you can specify the desired id of the aruco marker that you want to go to-
-# in file myur5_moveit_config/scripts/move_group_python_interface2.py, go to line 91
-# in the MarkerId variable, specify the ID {1,2,3,4,12 or 13}
+#you can specify the desired id of the aruco marker that you want to go to-
+#in file myur5_moveit_config/scripts/move_group_python_interface2.py, go to line 91
+#in the MarkerId variable, specify the ID {1,2,3,4,12 or 13}
 
-# if there is an error while running python script files, go to the file properties and set the python files as executable via program
+#if there is an error while running python script files, go to the file properties and set the python files as executable via program
 
 ----------------------------------------------------------------------------------------
 
 # Alternate approach to aruco detection and tracking-
-# in separate terminals run the following commands
+#in separate terminals run the following commands
 
 roslaunch myur5_description myur5.launch
 roslaunch myur5_moveit_config myur5_move_group_python.launch
@@ -90,17 +90,17 @@ rosrun myur5_moveit_config move_group_python_interface3.py
 ------------------------------------------------------------------------------------------
 
 # Pose estimation on aruco markers, refer to the following-
-# https://docs.opencv.org/4.x/d5/dae/tutorial_aruco_detection.html
-# https://docs.opencv.org/4.x/d9/d0c/group__calib3d.html#ga3207604e4b1a1758aa66acb6ed5aa65d
+#https://docs.opencv.org/4.x/d5/dae/tutorial_aruco_detection.html
+#https://docs.opencv.org/4.x/d9/d0c/group__calib3d.html#ga3207604e4b1a1758aa66acb6ed5aa65d
 
 python move_group_python_interface4.py
-# file to move arm according to pose of aruco markers
+#file to move arm according to pose of aruco markers
 
 
 ---------------------------------------------------------------------------------------
 # new folders added- doing the same thing as before, but while using intel realsense D435 as camera.
 
-# pose correction by running the following two scripts instead of before
+#pose correction by running the following two scripts instead of before
 rosrun myur5_realsense_moveit_config read_images2.py
 rosrun myur5_realsense_moveit_config move_group_python_interface4.py
 
