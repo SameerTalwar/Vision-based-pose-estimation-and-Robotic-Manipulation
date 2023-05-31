@@ -1,1 +1,0 @@
-/home/sameer/catkin_ws/src/myur5sim/myur5_moveit_config/scripts/move_group_python_interface.py
