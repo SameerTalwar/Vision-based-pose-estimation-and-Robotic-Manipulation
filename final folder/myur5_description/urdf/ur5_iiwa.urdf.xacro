@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro" name="myur5">
+
+  <xacro:include filename="$(find myur5_description)/urdf/myur5.gazebo" />
+  <!--xacro:include filename="$(find myur5_description)/urdf/materials.xacro" /-->
+    <link name="world" />
+    <link name="pedestal">
+        <inertial>
+            <origin xyz="0 0 0.5" rpy="0 0 0" />
+            <mass value="20" />
+            <inertia ixx="200" ixy="200" ixz="200" iyy="200" iyz="200" izz="200" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0.5" rpy="0 0 0" />
+            <geometry>
+                <cylinder radius="0.1" length="1" />
+            </geometry>
+            <material name ="Gray">
+                <color rgba="0.5 0.5 0.5 0" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0.5" rpy="0 0 0" />
+            <geometry>
+                <cylinder radius="0.1" length="1" />
+            </geometry>
+        </collision>
+    </link>
+    <gazebo reference="pedestal">
+        <mu1>0.2</mu1>
+        <mu2>0.2</mu2>
+        <material>Gazebo/Orange</material>
+    </gazebo>
+    <joint name="world_joint" type="fixed">
+        <parent link="world" />
+        <child link="pedestal" />
+        <origin xyz="0 0 0" rpy="0.0 0.0 0.0" />
+    </joint>
+    <xacro:arg name="transmission_hw_interface" default="hardware_interface/PositionJointInterface"/>
+    <!-- common stuff -->
+    <xacro:include filename="$(find ur_description)/urdf/common.gazebo.xacro" />
+    <!-- ur5 -->
+    <xacro:include filename="$(find ur_description)/urdf/ur5.urdf.xacro" />
+    <!-- iiwa -->
+    <xacro:include filename="$(find iiwa_description)/urdf/iiwa7.urdf.xacro" />
+    <!-- arm -->
+    <xacro:ur5_robot prefix="" joint_limited="true"
+    transmission_hw_interface="$(arg transmission_hw_interface)" />
+    <!-- iiwa -->
+    <xacro:iiwa7 parent="world">
+        <origin xyz="2 2 0" rpy="0 0 0"/>
+    </xacro:iiwa7>
+    <plugin name="ros_control" filename="libgazebo_ros_control.so" />
+
+    <joint name="base_joint" type="fixed">
+        <parent link="pedestal" />
+        <child link="base_link" />
+        <origin xyz="0 0 1" rpy="0.0 0.0 0.0" />
+    </joint>
+
+    <xacro:property name="camera_width" value="0.04" />
+    <joint name="camera_joint" type="fixed">
+	<origin xyz="0.0 0.100 ${camera_width}" rpy="0 0 1.57" />
+        <parent link="wrist_3_link" />
+        <child link="camera_link" />
+    </joint>
+
+    <link name="camera_link">
+        <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <mass value="1e-5" />
+            <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <box size="${camera_width} ${camera_width} ${camera_width}" />
+            </geometry>
+            <material name ="red" />
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <box size="${camera_width} ${camera_width} ${camera_width}" />
+            </geometry>
+        </collision>
+    </link>
+
+    <!--link name="tool_gripper" /-->
+
+    <!--joint name="tool_gripper_joint" type="fixed">
+      <parent link="tool0" />
+      <child link = "tool_gripper" />
+      <origin xyz="0.0 0.0 0.12084" rpy="0.0 0.0 0.0" />
+    </joint-->
+    <!--xacro:include filename="$(find myur5_description)/urdf/gripper.xacro" /-->
+    <!--xacro:gripper /-->
+
+    <xacro:include filename="$(find myur5_description)/urdf/box.xacro" />
+    <xacro:box />
+
+    <!--xacro:include filename="$(find myur5_description)/urdf/cell.xacro" /-->
+    <!--xacro:cell /-->
+
+    <!--xacro:include filename="$(find myur5_description)/urdf/imu.xacro" /-->
+    <!--xacro:imu /-->
+
+    <xacro:include filename="$(find myur5_description)/urdf/button.xacro" />
+    <xacro:button />
+
+    <!--xacro:include filename="$(find myur5_description)/urdf/camera.urdf.xacro" /-->
+    <!--xacro:camera_mount prefix="camera" topic="camera_image" parent_link="camera_link"/-->
+
+</robot>
+
+
+
