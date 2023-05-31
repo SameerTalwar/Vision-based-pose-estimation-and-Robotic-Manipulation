@@ -1,0 +1,2 @@
+controller_joint_names: [ elbow_joint shoulder_lift_joint shoulder_pan_joint wrist_1_joint wrist_2_joint wrist_3_joint robotiq_85_left_knuckle_joint]
+#Gripper_controller_joint_names: [ robotiq_85_left_knuckle_joint ]
